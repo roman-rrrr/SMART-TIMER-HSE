@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timer</title>
+<style>
+body {
+  min-height: 100vh;
+  margin: 0;
+  background-image: url('/static/blog-background-2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex; /* Включаем flex-контейнер */
+  justify-content: center; /* Центрируем по горизонтали */
+  align-items: center; /* Центрируем по вертикали */
+}
+h2 {
+  font-size: 30px; /* Размер шрифта заголовка */
+  color: white; /* Цвет заголовка */
+  text-align: center; /* Центрирование по горизонтали */
+  margin-top: 2vh; /* Центрирование по вертикали (примерно) */
+}
+
+label {
+  font-size: 19px; /* Размер шрифта заголовка */
+  color: white; /* Цвет заголовка */
+}
+form {
+  max-width: 500px;
+  margin: auto;
+  background: rgba(0,0,0, 0.6);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+input {
+  width: 100%;
+  padding: 7px;
+  margin: 14px 0;
+  background-color: rgba(153, 150, 150, 0.2);
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin: 14px 0;
+  text-align: center; /* Центрирование по горизонтали */
+  background-color: white;
+  color: #0c0c0ced;
+  border: none;
+}
+
+ul{
+  padding-left: 15px; /* Отступ слева для списка */
+  color: white;
+}
+
+
+li {
+  font-size: 19px; /* Размер шрифта заголовка */
+  color: white; /* Цвет заголовка */
+  margin-top: 2vh; /* Центрирование по вертикали (примерно) */
+  align-items: center;
+}
+
+</style>
+</head>
+
+<body>
+
+<form method="get" action="/index">
+  <h2>Smart Timer</h2>
+  <ul>
+    <li>Включите режим НЕ БЕСПОКОИТЬ на телефоне</li>
+    <li>Устраните отвлекающие факторы, такие как мессенджеры и соцсети. В перерывах воздержитесь от использования TikTok, Instagram и Reels. Длинные перерывы Вы можете использовать для прогулок или выполнения упражнений. Сервис предлагает упражнения для улучшения мобильности и восстановления зрения. </h3>
+    <li>Разделите работу на мини-задачи по времени.</li>
+    <li>Smart Timer работает по схеме: 25 минут работы — 5 минут перерыва (3 раза), после: 25 минут работы — 15 минут перерыва. Но вы можете настроить работу под себя.</li>
+  </ul>
+  <button type="submit">Начать</button>
+</form>
+</body>

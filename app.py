@@ -1,3 +1,28 @@
+import threading
+
+from flask import Flask, render_template, request
+
+import timer_logic
+
+from flask improt jsonify
+
+app = Flask(__name__)
+
+@app.route("/status")
+def status():
+    timer_start = timer_logic.send_status()
+    if timer_start is None:
+        return jsonify({"1": "ожидание", "2": 0, "3": 0})
+    return jsonify(timer_start)
+
+
+def correct1(value):
+    if ":" not in value:
+        return False
+    return True
+
+
+
 @app.route("/start", methods=["POST"])
 def start():
     able_to_work = request.form["able_to_work"]
