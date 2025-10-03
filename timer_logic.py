@@ -1,6 +1,5 @@
 from time import localtime
 
-
 def format_time(seconds):
     seconds = int(seconds)
     minutes = seconds // 60
@@ -33,3 +32,34 @@ def run_timer(_1, _2, _3, _4):
     accounting = ""
     
     now = ["work", 0, work_without_timeout]
+
+    while (not (done > work_time)):
+        if stop_flag:
+            print("Таймер остановлен.")
+            return
+        if accounting.count("ab") == 3:
+            for s in range(0, work_without_timeout + 1):
+                if done + 1 > work_time:
+                    print(f"Время работы истекло! Вы продуктивно работали {done} сек.")
+                    #(f"Время работы истекло! Вы продуктивно работали {done} сек.")
+                if s != 0:
+                    print(f"Вы работаете уже: {s} сек. Осталось до следущего отдыха {work_without_timeout - s} сек.")
+                    done += 1
+                    now = ['work', s, work_without_timeout - s]
+                    #send_status()
+                    # (f"Вы работаете уже: {s} сек. Осталось до следущего отдыха {work_without_timeout - s} сек.")
+                time.sleep(1)
+            accounting += "a"
+            print("Пора сделать длинный перерыв!")
+            for s in range(0, long_timeout + 1):
+                if done + 1 > work_time:
+                    print(f"Время работы истекло! Вы продуктивно работали {done} сек.")
+                    #(f"Время работы истекло! Вы продуктивно работали {done} сек.")
+                if s != 0:
+                    print(f"Вы отдыхаете уже: {s} сек. До работы осталось {long_timeout - s} сек.")
+                    done += 1
+                    now = ['chill', s, long_timeout - s]
+                    #(f"Вы отдыхаете уже: {s} сек. До работы осталось {long_timeout - s} сек.")
+                time.sleep(1)
+            accounting = ""
+            print("Пора возвращаться к работе((")
