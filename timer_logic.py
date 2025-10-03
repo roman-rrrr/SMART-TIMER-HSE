@@ -21,11 +21,6 @@ new1 = [int(i) for i in _1.split(":")]
 hours1 = new1[0]  # до скольки часов готов работать
 minutes1 = new1[1]  # до скольки минут готов работать
 
-if str(minutes1)[0] == "0":
-    minutes1 = int(str(minutes1)[1])
-if str(hours1)[0] == "0":
-    hours1 = int(str(hours1)[1])
-
 goal_time = hours1 * 60 * 60 + minutes1 * 60  # до скольки можете работать в секундах
 
 work_time = goal_time - local_time  # СКОЛЬКО ПОЛЬЗОВАТЕЛЬ ГОТОВ РАБОТАТЬ В СЕК
