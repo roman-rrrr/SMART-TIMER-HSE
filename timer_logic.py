@@ -10,6 +10,21 @@ def format_time(seconds):
         return f"{seconds} сек"
     return f"{minutes} мин {seconds} сек"
 
+def send_status():
+    global now
+    if now[0] is not None:
+        if now[0] == 'work':
+            return{
+                "1" : ["Вы работаете уже: ", format_time(now[1])],
+                "2" : ["До перерыва осталось: ", format_time(now[2])],
+                "3" : "Не отвлекайтесь на телефон!"
+            }
+        else:
+            return {
+                "1" : ["Вы отдыхаете уже: ", format_time(now[1])],
+                "2" : ["До работы осталось: ", format_time(now[2])],
+                "3" : "тут будет полезная ссылка"
+            }
 
 def run_timer(_1, _2, _3, _4):
     global stop_flag, now
