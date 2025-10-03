@@ -1,6 +1,8 @@
 from time import localtime
 import time
 
+stop_flag = False
+now = [None, 0, 0]
 
 def format_time(seconds):
     seconds = int(seconds)
