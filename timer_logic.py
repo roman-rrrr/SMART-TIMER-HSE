@@ -1,4 +1,6 @@
 from time import localtime
+import time
+
 
 def format_time(seconds):
     seconds = int(seconds)
