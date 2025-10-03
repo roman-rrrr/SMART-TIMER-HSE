@@ -11,10 +11,11 @@ def format_time(seconds):
 
 
 def run_timer(_1, _2, _3, _4):
+    global stop_flag, now
+    stop_flag = False
+
     now = localtime()  # текущее время у пользователя формата (h:m:s)
-    local_time = (
-        now.tm_hour * 3600 + now.tm_min * 60 + now.tm_sec
-    )  # текущее время в секундах
+    local_time = (now.tm_hour * 3600 + now.tm_min * 60 + now.tm_sec)  # текущее время в секундах
 
     new1 = [int(i) for i in _1.split(":")]
     hours1 = new1[0]  # до скольки часов готов работать
@@ -28,4 +29,7 @@ def run_timer(_1, _2, _3, _4):
     little_timeout = int(_3) * 60 #в сек
     long_timeout = int(_4) * 60 #в сек
 
-
+    done = 0
+    accounting = ""
+    
+    now = ["work", 0, work_without_timeout]
