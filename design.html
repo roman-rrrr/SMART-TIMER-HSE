@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background-image: url('blog-background-2.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;                /* Включаем flex-контейнер */
+      justify-content: center;      /* Центрируем по горизонтали */
+      align-items: center;          /* Центрируем по вертикали */
+    }
+    h2 {
+    font-size: 30px; /* Размер шрифта заголовка */
+    color: rgba(0, 0, 0); /* Цвет заголовка */
+    text-align: center; /* Центрирование по горизонтали */
+    margin-top: 2vh; /* Центрирование по вертикали (примерно) */
+    }
+    form { max-width: 500px; margin: auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    input, button { width: 100%; padding: 10px; margin: 10px 0; }
+    button { background-color: #0c0c0ced; color: white; border: none; }
+  </style>
+</head>
+<body>
+  <form method="post" action="/start">
+    <h2>Smart Timer</h2>
+
+    <label>Сколько времени Вы планируете работать? (часы:минуты)</label>
+    <input type="text" name="work_time" required>
+
+    <label>Сколько Вы готовы работать без отдыха? (минуты)</label>
+    <input type="number" name="no_break" required>
+
+    <label>Короткий перерыв (минуты)</label>
+    <input type="number" name="short_break" required>
+
+    <label>Длинный перерыв (минуты)</label>
+    <input type="number" name="long_break" required>
+
+    <button type="submit">Начать</button>
+  </form>
+</body>
+</html>
