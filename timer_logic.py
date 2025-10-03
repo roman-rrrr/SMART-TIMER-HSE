@@ -63,3 +63,28 @@ def run_timer(_1, _2, _3, _4):
                 time.sleep(1)
             accounting = ""
             print("Пора возвращаться к работе((")
+        else:
+            for s in range(0, work_without_timeout + 1):
+                if done + 1 > work_time:
+                    print(f"Время работы истекло! Вы продуктивно работали {done} сек.")
+                    #(f"Время работы истекло! Вы продуктивно работали {done} сек.")
+                if s != 0:
+                    print(f"Вы работаете уже: {s} сек. Осталось до следущего отдыха {work_without_timeout - s} сек.")
+                    done += 1
+                    now = ['work', s, work_without_timeout - s]
+                    #(f"Вы работаете уже: {s} сек. Осталось до следущего отдыха {work_without_timeout - s} сек.")
+                time.sleep(1)
+            accounting += "a"
+            print("Пора сделать короткий перерыв!")
+            for s in range(0, little_timeout + 1):
+                if done + 1 > work_time:
+                    print(f"Время работы истекло! Вы продуктивно работали {done} сек.")
+                    #(f"Время работы истекло! Вы продуктивно работали {done} сек.")
+                if s != 0:
+                    print(f"Вы отдыхаете уже: {s} сек. До работы осталось {little_timeout - s} сек.")
+                    done += 1
+                    now = ['chill', s, little_timeout - s]
+                    #(f"Вы отдыхаете уже: {s} сек. До работы осталось {little_timeout - s} сек.")
+                time.sleep(1)
+            accounting += "b"
+            print("Пора возвращаться к работе((")
