@@ -56,7 +56,7 @@ def run_timer(_1, _2, _3, _4):
     while done < work_time:
         if accounting.count("ab") == 3:
             # НАЧАЛО РАБОТЫ
-            playsound("Пора_возвращаться_к_работе.mp3")
+            playsound("back_to_work.mp3")
             for s in range(1, work_without_timeout + 1):
                 with lock:
                     if stop_flag:
@@ -69,7 +69,7 @@ def run_timer(_1, _2, _3, _4):
                     break
             accounting += "a"
             # НАЧАЛО ДЛИННОГО ПЕРЕРЫВА
-            playsound("Длинный.mp3")
+            playsound("long.mp3")
             for s in range(1, long_timeout + 1):
                 with lock:
                     if stop_flag:
@@ -84,7 +84,7 @@ def run_timer(_1, _2, _3, _4):
         else:
             # НАЧАЛО РАБОТЫ
             if accounting != "s":
-                playsound("Пора_возвращаться_к_работе.mp3")
+                playsound("back_to_work.mp3")
             for s in range(1, work_without_timeout + 1):
                 with lock:
                     if stop_flag:
@@ -97,7 +97,7 @@ def run_timer(_1, _2, _3, _4):
                     break
             accounting += "a"
             # НАЧАЛО КОРОТКОГО ПЕРЕРЫВА
-            playsound("Короткий.mp3")
+            playsound("short.mp3")
             for s in range(1, little_timeout + 1):
                 with lock:
                     if stop_flag:
@@ -110,6 +110,6 @@ def run_timer(_1, _2, _3, _4):
                     break
             accounting += "b"
     # ЗАВЕРШЕНИЕ РАБОТЫ
-    playsound("Время_истекло.mp3")
+    playsound("time_end.mp3")
     with lock:
         now = [None, 0, 0]
