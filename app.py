@@ -1,86 +1,73 @@
+from flask import Flask, request, render_template, redirect, url_for, jsonify
 import threading
-
-from flask import Flask, render_template, request
-
+from time import localtime
 import timer_logic
-
-from flask improt jsonify
 
 app = Flask(__name__)
 
-@app.route("/status")
+@app.route('/')
+def test():
+    return render_template('test.html')
+
+@app.route('/index')
+def index():
+    return render_template('index.html')
+
+@app.route('/status')
 def status():
     timer_start = timer_logic.send_status()
     if timer_start is None:
-        return jsonify({"1": "ожидание", "2": 0, "3": 0})
+        return jsonify({"1": ["ожидание", ""], "2": ["", ""], "3": ""})
     return jsonify(timer_start)
-
 
 def correct1(value):
     if ":" not in value:
         return False
     return True
 
-
-
-@app.route("/start", methods=["POST"])
+@app.route('/start', methods=['POST'])
 def start():
-    able_to_work = request.form["able_to_work"]
-    no_break = request.form["no_break"]
-    short_break = request.form["short_break"]
-    long_break = request.form["long_break"]
+    # Проверяем, не запущен ли уже таймер
+    if timer_logic.now[0] is not None:
+        return render_template('error.html', error_message="Таймер уже запущен. Остановите текущий таймер перед запуском нового.")
 
-    if correct1(able_to_work) == False:
-        return render_template(
-            "error.html", error_message="Неверный формат времени. Используйте HH:MM."
-        )
+    able_to_work = request.form['able_to_work']
+    no_break = request.form['no_break']
+    short_break = request.form['short_break']
+    long_break = request.form['long_break']
+
+    if not correct1(able_to_work):
+        return render_template('error.html', error_message="Неверный формат времени. Используйте HH:MM.")
 
     now = localtime()
-    local_time = (
-        now.tm_hour * 3600 + now.tm_min * 60 + now.tm_sec
-    )  # текущее время в секундах
+    local_time = now.tm_hour * 3600 + now.tm_min * 60 + now.tm_sec
 
-    new1 = [int(i) for i in able_to_work.split(":")]  # до скольки можете работать
-    hours1 = new1[0]
-    minutes1 = new1[1]
+    try:
+        new1 = [int(i) for i in able_to_work.split(":")]
+        hours1 = new1[0]
+        minutes1 = new1[1]
+    except Exception:
+        return render_template('error.html', error_message="Неверный формат времени. Используйте HH:MM.")
 
     if hours1 < 0 or hours1 > 23 or minutes1 < 0 or minutes1 > 59:
-        return render_template(
-            "error.html", error_message="Неверный формат времени. Используйте HH:MM."
-        )
+        return render_template('error.html', error_message="Неверный формат времени. Используйте HH:MM.")
 
-    _5 = hours1 * 60 * 60 + minutes1 * 60  # до скольки можете работать в секундах
-
-    work_time = _5 - local_time
+    goal_time = hours1 * 60 * 60 + minutes1 * 60
+    work_time = goal_time - local_time
 
     if work_time <= 0:
-        return render_template(
-            "error.html", error_message="Неверный формат времени. Используйте HH:MM."
-        )
+        return render_template('error.html', error_message="Неверный формат времени. Используйте HH:MM.")
 
-    threading.Thread(
-        target=timer_logic.run_timer,
-        args=(able_to_work, no_break, short_break, long_break),
-    ).start()
-    # return render_template('started.html')
+    threading.Thread(target=timer_logic.run_timer, args=(able_to_work, no_break, short_break, long_break)).start()
 
-    timer_start = timer_logic.send_status()
+    return render_template('started.html')
 
-    status1 = timer_start["1"][0] + timer_start["1"][1]
-    status2 = timer_start["2"][0] + timer_start["2"][1]
-    status3 = timer_start["3"]
+@app.route('/stop', methods=['POST'])
+def stop():
+    with timer_logic.lock:
+        timer_logic.stop_flag = True
+        timer_logic.now = [None, 0, 0]
+    return render_template('test.html')
 
-    # print(status1)
-    # print(status2)
-    # print(status3)
-
-    return render_template(
-        "started.html",
-        ## work_time=work_time,
-        ## no_break=no_break,
-        ## short_break=short_break,
-        ## long_break=long_break,
-        status1=status1,
-        status2=status2,
-        status3=status3,
-    )
+if __name__ == '__main__':
+    app.run(debug=True)
