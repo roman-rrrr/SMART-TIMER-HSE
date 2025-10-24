@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, url_for, jsonify
 import threading
 from time import localtime
 import timer_logic
+import webbrowser
 
 app = Flask(__name__)
 
@@ -70,4 +71,5 @@ def stop():
     return render_template('test.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    threading.Timer(1.0, lambda: webbrowser.open('http://127.0.0.1:5000/')).start()
+    app.run(debug=True, use_reloader=False)
